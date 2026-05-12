@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main  # 确保你的主分支名字是 main
+
+permissions:
+  contents: write # 必须添加，否则脚本没权限创建 gh-pages 分支
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install and Build
+        run: |
+          npm install  # 如果你本地用的是 pnpm，这里可以改用 npx pnpm install
+          npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # 注意：Vite 打包后的文件夹叫 dist，绝对不能填 src
+          branch: gh-pages
