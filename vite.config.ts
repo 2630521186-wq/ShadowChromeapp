@@ -1,4 +1,11 @@
 import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  base: './', // 👈 必须加上这一行！
+})
+
 import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
@@ -17,7 +24,6 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig({
-  base:'./',
   plugins: [
     figmaAssetResolver(),
     // The React and Tailwind plugins are both required for Make, even if
